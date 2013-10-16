@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head><title>Charts</title>
+</head>
+<body>
+<button id='btn' style="width:300px; height:80px">刷新</button>
+<div id="charts" style="height:500px;"></div>
+
+<script src="charts.js"></script>
+<script>
+var charts = document.getElementById('charts');
+var btn = document.getElementById('btn');
+var data = {
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        // categories: ['Jan', 'Feb', 'Mar']
+    },
+
+    series: [
+        {
+            name: 'Tokyo',
+            color: '#b8d4f0',
+            data: [1.0, 100.9, 9.5, 7.5, 18.2, 21.5, 23.2, 26.5, 23.3, 18.3, 23.3, 18.3]
+        }       
+    ]
+};
+
+Charts.plots(charts, data);
+
+btn.onclick = function(){
+    var data = {
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct']
+        },
+
+        series: [
+            {
+                name: 'Tokyo',
+                color: '#b8d4f0',
+                data: [1.0, 100.9, 9.5, 7.5, 18.2, 21.5, 23.2, 26.5, 23.3, 18.3]
+            }       
+        ]
+    };
+    Charts.plots(charts, data);
+}
+</script>
+</body>
+</html>
