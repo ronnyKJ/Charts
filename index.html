@@ -37,6 +37,11 @@ var data = {
             height : '40px'
         }
     },
+    indicator : {
+        width: "4px",
+        background: "url(/charts_dev_UI/res/dash.png)",
+        border : "none"
+    },
     valueLabel : {
         type : 'all',//all(default) x none
         most : 'both', //both(default) min max none
@@ -69,7 +74,7 @@ var data = {
         }
     },
     xAxis: {
-        // visible : false, //visible === false，不显示，其他情况显示
+        tickVisible : false, //visible === false，不显示，其他情况显示
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         step : 3, // 间隔
@@ -78,10 +83,11 @@ var data = {
         lineWidth : 2
     },
     yAxis: {
-        // visible : false, //visible === false，不显示，其他情况显示
+        tickVisible : false, //visible === false，不显示，其他情况显示
         lineColor : '#f2f2f2',
         fontColor : '#aaaaaa',
-        lineWidth : 2
+        lineWidth : 2,
+        labelVisible : false
     },
     series: [
         {
@@ -91,12 +97,7 @@ var data = {
         }       
     ],
     onhover : function(x, yArr){
-        show.innerHTML = x + ' is ' + yArr[0] + ' pounds';
-    },
-    indicator : {
-        width: "4px",
-        background: "url(/charts_dev_UI/res/dash.png)",
-        border : "none"
+        show.innerHTML = yArr[0].name+' : '+x + ' is ' + yArr[0].data + ' pounds';
     }
 };
 
