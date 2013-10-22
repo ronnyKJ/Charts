@@ -13,39 +13,39 @@ var btn = document.getElementById('btn');
 var show = document.getElementById('show');
 var data = {
     initAnim : true,
-    roundDot : {
-        type : 'x',// none all x
-        most : 'both',//both min max
-        dot : {
+    roundDot : { // 圆点样式，该属性可为空
+        type : 'x',// 备选值: none[没有普通圆点] all[(默认)显示全部普通圆点] x[显示和X轴对应的圆点] 或 该属性为空属性
+        most : 'both',// 备选值: both[(默认)显示最大最小值圆点] min[显示最小值圆点] max[显示最大值圆点] 或 该属性为空属性
+        dot : { // 普通圆点CSS样式，该属性可为空
             background : 'url(/charts_dev_UI/res/round.png) no-repeat',
             width : '20px',
             height : '20px'
         },
-        min : {
+        min : { // 最小值圆点CSS样式，该属性可为空
             background : 'url(/charts_dev_UI/res/min.png) no-repeat',
             width : '36px',
             height : '36px'
         },
-        max : {
+        max : { // 最大值圆点CSS样式，该属性可为空
             background : 'url(/charts_dev_UI/res/max.png) no-repeat',
             width : '36px',
             height : '36px'
         },
-        hover : {
+        hover : { // 指示线圆点CSS样式，该属性可为空
             background : 'url(/charts_dev_UI/res/round-hover.png) no-repeat',
             width : '40px',
             height : '40px'
         }
     },
-    indicator : {
+    indicator : { // 指示线CSS样式，该属性可为空
         width: "4px",
         background: "url(/charts_dev_UI/res/dash.png)",
         border : "none"
     },
     valueLabel : {
-        type : 'all',//all(default) x none
-        most : 'both', //both(default) min max none
-        label : {
+        type : 'all',// 备选值: none[没有普通值标签] all[(默认)显示全部普通值标签] x[显示和X轴对应的值标签] 或 该属性为空属性
+        most : 'both', // 备选值: both[(默认)显示最大最小值标签] min[显示最小值标签] max[显示最大值标签] 或 该属性为空属性
+        label : { // 普通值标签CSS样式，该属性可为空
             background : 'url(/charts_dev_UI/res/label.png) no-repeat',
             "text-align" : "center",
             width : "104px",
@@ -54,7 +54,7 @@ var data = {
             color: '#FFF',
             "font-size" : '24px'
         },
-        max : {
+        max : { // 最大值标签CSS样式，该属性可为空
             background : 'url(/charts_dev_UI/res/max-label.png) no-repeat',
             "text-align" : "center",
             width : "112px",
@@ -63,7 +63,7 @@ var data = {
             color: '#FFF',
             "font-size" : '24px'
         },
-        min : {
+        min : { // 最小值标签CSS样式，该属性可为空
             "background" : 'url(/charts_dev_UI/res/min-label.png) no-repeat',
             "text-align" : "center",
             width : "112px",
@@ -73,31 +73,34 @@ var data = {
             "font-size" : '24px'   
         }
     },
-    xAxis: {
-        tickVisible : false, //visible === false，不显示，其他情况显示
+    xAxis: { // x轴属性，必选
+        tickVisible : false, // 当tickVisible === false，刻度线不显示，其他情况显示，该属性可为空
+        step : 3, // x轴刻度步数，每N步显示一条竖线，该属性可为空
+        lineColor : '#f2f2f2', // 刻度线颜色，该属性可为空
+        fontColor : '#aaaaaa', // 标签字体颜色，该属性可为空
+        lineWidth : 2, // 刻度线宽度，该属性可为空
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        step : 3, // 间隔
-        lineColor : '#f2f2f2',
-        fontColor : '#aaaaaa',
-        lineWidth : 2
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] // x轴坐标值，必选
     },
-    yAxis: {
-        tickVisible : false, //visible === false，不显示，其他情况显示
-        lineColor : '#f2f2f2',
-        fontColor : '#aaaaaa',
-        lineWidth : 2,
-        labelVisible : false
+    yAxis: { // 该属性可为空
+        tickVisible : false, //当tickVisible === false，刻度线不显示，其他情况显示，该属性可为空
+        lineColor : '#f2f2f2', // 刻度线颜色，该属性可为空
+        fontColor : '#aaaaaa', // 标签字体颜色，该属性可为空
+        lineWidth : 2, // 刻度线宽度，该属性可为空
+        labelVisible : false // labelVisible === false，刻度值不显示，其他情况显示，该属性可为空
     },
-    series: [
+    series: [ // 数据，必选
         {
-            name: 'Tokyo',
-            color: '#b8d4f0',
-            data: [7.0, 6.9, 9.5, 7.5, 18.2, 21.5, 23.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+            name: 'Tokyo', // 数据名称
+            color: '#b8d4f0', // 数据折线的颜色，该属性可为空
+            data: [7.0, 6.9, 9.5, 7.5, 18.2, 21.5, 23.2, 26.5, 23.3, 18.3, 13.9, 9.6]// 数据，必选
         }       
     ],
-    onhover : function(x, yArr){
-        show.innerHTML = yArr[0].name+' : '+x + ' is ' + yArr[0].data + ' pounds';
+    onhover : { // 该属性可为空
+        callback : function(x, yArr){ // touchmove时回调，必选
+            show.innerHTML = yArr[0].name+' : '+x + ' is ' + yArr[0].data + ' pounds';
+        },
+        start : 3 //初始位置，默认为最后一个位置，该属性可为空
     }
 };
 
