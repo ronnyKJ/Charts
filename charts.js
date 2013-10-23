@@ -311,14 +311,14 @@
         }
         
 
-        var halfWidth = width/2, arrowTmp = 0;
+        var halfWidth = width/2, arrowTmp = 0, adjust = 3;
         var leftPos = halfWidth;
         if(x < halfWidth){
-            leftPos = 0;
-            arrowTmp = x - halfWidth;
+            leftPos = -adjust;
+            arrowTmp = x - halfWidth + adjust;
         }else if(commonAttr.containerWidth - x < halfWidth){
-            leftPos = commonAttr.containerWidth - width;
-            arrowTmp = x - (commonAttr.containerWidth - halfWidth);
+            leftPos = commonAttr.containerWidth - width + adjust;
+            arrowTmp = x - (commonAttr.containerWidth - halfWidth) - adjust;
         }else{
             leftPos = x - halfWidth;
         }
@@ -495,15 +495,21 @@
         renderCoordY(container, data);
     }
 
-    var showIndicator = function(x, y, data, startIndex){
-        var interval = commonAttr.xInterval, posX, posY, halfStep = interval/2;
-        var index = startIndex || parseInt(x/interval);
-        // 吸附
-        var posX = index * interval + halfStep;
-
-        if(posX < 0 || posX > commonAttr.containerWidth){
+    var indicatorLastIndex;
+    var showIndicator = function(x, y, data, startIndex, isInit){
+        if(x < 0 || x >= commonAttr.containerWidth){
             return;
         }
+
+        var interval = commonAttr.xInterval, posX, posY, halfStep = interval/2;
+        var index = startIndex || parseInt(x/interval);
+        if(indicatorLastIndex == index && !isInit){
+            return;
+        }else{
+            indicatorLastIndex = index;
+        }
+        // 吸附
+        var posX = index * interval + halfStep;
 
         indicator.style.left = posX-indicator.offsetWidth/2 + 'px';
 
@@ -537,7 +543,7 @@
                     position : "absolute",
                     top : commonAttr.yAxis[j][index]-round.offsetHeight/2 + 'px',
                     left : posX-round.offsetWidth/2 + 'px',
-                    "background-color" : '#FFF'//data.series[j].color || defaultElements.plotDefaultColors[j] || '#FFF'
+                    backgroundColor : '#FFF'//data.series[j].color || defaultElements.plotDefaultColors[j] || '#FFF'
                 });
             }
         }
@@ -551,17 +557,20 @@
     }
 
     var bindAction = function(data){
-        var tmpX = 0;
+        var startX, startY;
         elementsContainer.addEventListener('touchmove', function(e){
             // e.preventDefault();
             var touch = e.touches[0], container = this.parentNode;
             var x = touch.pageX - container.offsetLeft;
             var y = touch.pageY - container.offsetTop;
 
-            if(Math.abs(x-tmpX) >= commonAttr.xInterval/2){
-                showIndicator(x, y, data);
-                tmpX = x;
+            var rate = Math.abs(y-startY)/Math.abs(x-startX);
+
+            if(rate < 2){
+                e.preventDefault();
+                first = false;
             }
+            showIndicator(x, y, data);
         });
 
         elementsContainer.addEventListener('touchstart', function(e){
@@ -573,6 +582,8 @@
             var y = touch.pageY - container.offsetTop;
 
             // U.setCss(hoverRounds, 'display', 'block');
+            startX = x;
+            startY = y;
 
             showIndicator(x, y, data);
         });
@@ -634,7 +645,7 @@
         if(data.onhover && data.onhover.callback){
             bindAction(data);
             var index = Math.min(data.onhover.start === undefined? 100000 : data.onhover.start, data.series[0].data.length - 1);
-            showIndicator(0, 0, data, index);
+            showIndicator(0, 0, data, indicatorLastIndex || index, true);
         }
     }
 
