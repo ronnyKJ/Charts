@@ -54,51 +54,47 @@
         }
     };
 
-    if(document.styleSheets.length == 0){
-        document.getElementsByTagName('head')[0].appendChild(U.C('style'));
+    var chartsTimeStamp = document.styleSheets.chartsTimeStamp;
+    if(chartsTimeStamp){
+        var timeStamp = chartsTimeStamp;
+    }else{
+        if(document.styleSheets.length == 0){
+            document.getElementsByTagName('head')[0].appendChild(U.C('style'));
+        }
+        var timeStamp = +new Date;
+        document.styleSheets.chartsTimeStamp = timeStamp;
+        U.addStyleSheets('.init-anim'  +timeStamp, 'transition:width 1s;-moz-transition:width 1s;-webkit-transition: width 1s;-o-transition:width 1s;');
+        U.addStyleSheets('.round-hover'+timeStamp, 'background-repeat: no-repeat;position: absolute;width: 16px;height: 16px;border-radius: 100px;border: #3f9a41 3px solid;');
+        U.addStyleSheets('.round-hover'+timeStamp+':before', 'display: block;content : "";border: #b7d3f0 2px solid;width: 6px;height: 6px;border-radius: 100px;margin: 3px;');
+        U.addStyleSheets('.coorY'      +timeStamp, 'position: absolute;text-align: right;font-size: 10px;left:-68px;width: 60px;');
+        U.addStyleSheets('.coorX'      +timeStamp, 'font-size: 10px;text-align: center;position:absolute;bottom: -25px;white-space:nowrap;');
+        U.addStyleSheets('.round-dot'  +timeStamp, 'position:absolute;border:#b7d3f0 2px solid;width:6px;height:6px;background:#e5f2ff;border-radius:100px;z-index:2');
+        U.addStyleSheets('.round-min'  +timeStamp, 'position:absolute;border:#b7d3f0 2px solid;width:14px;height:14px;background:#e5f2fe;border-radius:100px;z-index:2');
+        U.addStyleSheets('.round-max'  +timeStamp, 'position:absolute;border:#f2c4c1 2px solid;width:14px;height:14px;background:#fde5e3;border-radius:100px;z-index:2');
+        U.addStyleSheets('.round-min'  +timeStamp+':before, .round-max'+timeStamp+':before', 'display: block;content : "";width: 10px;height: 10px;margin:2px;border-radius: 100px;');
+        U.addStyleSheets('.round-min'  +timeStamp+':before', 'background: #3a82c9');
+        U.addStyleSheets('.round-max'  +timeStamp+':before', 'background: #cd332d');
+        U.addStyleSheets('.value-label'+timeStamp, 'position: absolute;text-align: center;font-size: 12px;color : #555;min-width:20px;white-space:nowrap;');
+        U.addStyleSheets('.value-label'+timeStamp+'.min, .value-label'+timeStamp+'.max', 'font-size: 12px;color: #FFF;padding: 0px 7px;border-radius: 4px;');
+        U.addStyleSheets('.value-label'+timeStamp+'.max', 'background: #d7372b;');
+        U.addStyleSheets('.value-label'+timeStamp+'.min', 'background: #3d8ee0;');
+        U.addStyleSheets('.value-label'+timeStamp+'.max .arrow-max', 'position: absolute;width: 0px;height: 0px;border-left: 5px solid transparent;border-right: 5px solid transparent;border-top: 5px solid #d7372b;');
+        U.addStyleSheets('.value-label'+timeStamp+'.min .arrow-min', 'position: absolute;width: 0px;height: 0px;border-left: 5px solid transparent;border-right: 5px solid transparent;border-bottom: 5px solid #3d8ee0;');
+        U.addStyleSheets('.indicator'  +timeStamp, 'position:absolute;width: 0;height: 100%;border-left: #7cbb7e 1px dashed;border-right: #7cbb7e 1px dashed;');
+        U.addStyleSheets('.legend'     +timeStamp, 'bottom: -50px;font-size: 10px;padding: 4px;border-radius: 2px;border: #AAA 1px solid;');
+        U.addStyleSheets('.legend-color'+timeStamp, 'border-radius: 2px;margin-right: 2px;display: inline-block;width: 10px;height: 10px;');
+        U.addStyleSheets('.legend-name' +timeStamp, 'margin-right: 10px;');
+        U.addStyleSheets('.elements-container'+timeStamp, 'position:absolute;left:0;top:0;width:100%;height:100%;');
+        U.addStyleSheets('.plot-container'+timeStamp, 'position:absolute;overflow:hidden;width:0;left:-10px;top:-10px;');
     }
-    var timeStamp = +new Date;
-    U.addStyleSheets('.init-anim'  +timeStamp, 'transition:width 1s;-moz-transition:width 1s;-webkit-transition: width 1s;-o-transition:width 1s;');
-    U.addStyleSheets('.round-hover'+timeStamp, 'background-repeat: no-repeat;position: absolute;width: 16px;height: 16px;border-radius: 100px;border: #3f9a41 3px solid;');
-    U.addStyleSheets('.round-hover'+timeStamp+':before', 'display: block;content : "";border: #b7d3f0 2px solid;width: 6px;height: 6px;border-radius: 100px;margin: 3px;');
-    U.addStyleSheets('.coorY'      +timeStamp, 'position: absolute;text-align: right;font-size: 10px;left:-68px;width: 60px;');
-    U.addStyleSheets('.coorX'      +timeStamp, 'font-size: 10px;text-align: center;position:absolute;bottom: -25px;white-space:nowrap;');
-    U.addStyleSheets('.round-dot'  +timeStamp, 'position:absolute;border:#b7d3f0 2px solid;width:6px;height:6px;background:#e5f2ff;border-radius:100px;z-index:2');
-    U.addStyleSheets('.round-min'  +timeStamp, 'position:absolute;border:#b7d3f0 2px solid;width:14px;height:14px;background:#e5f2fe;border-radius:100px;z-index:2');
-    U.addStyleSheets('.round-max'  +timeStamp, 'position:absolute;border:#f2c4c1 2px solid;width:14px;height:14px;background:#fde5e3;border-radius:100px;z-index:2');
-    U.addStyleSheets('.round-min'  +timeStamp+':before, .round-max'+timeStamp+':before', 'display: block;content : "";width: 10px;height: 10px;margin:2px;border-radius: 100px;');
-    U.addStyleSheets('.round-min'  +timeStamp+':before', 'background: #3a82c9');
-    U.addStyleSheets('.round-max'  +timeStamp+':before', 'background: #cd332d');
-    U.addStyleSheets('.value-label'+timeStamp, 'position: absolute;text-align: center;font-size: 12px;color : #555;min-width:20px;white-space:nowrap;');
-    U.addStyleSheets('.value-label'+timeStamp+'.min, .value-label'+timeStamp+'.max', 'font-size: 12px;color: #FFF;padding: 0px 7px;border-radius: 4px;');
-    U.addStyleSheets('.value-label'+timeStamp+'.max', 'background: #d7372b;');
-    U.addStyleSheets('.value-label'+timeStamp+'.min', 'background: #3d8ee0;');
-    U.addStyleSheets('.value-label'+timeStamp+'.max .arrow-max', 'position: absolute;width: 0px;height: 0px;border-left: 5px solid transparent;border-right: 5px solid transparent;border-top: 5px solid #d7372b;');
-    U.addStyleSheets('.value-label'+timeStamp+'.min .arrow-min', 'position: absolute;width: 0px;height: 0px;border-left: 5px solid transparent;border-right: 5px solid transparent;border-bottom: 5px solid #3d8ee0;');
-    U.addStyleSheets('.indicator'  +timeStamp, 'position:absolute;width: 0;height: 100%;border-left: #7cbb7e 1px dashed;border-right: #7cbb7e 1px dashed;');
-    U.addStyleSheets('.legend'     +timeStamp, 'bottom: -50px;font-size: 10px;padding: 4px;border-radius: 2px;border: #AAA 1px solid;');
-    U.addStyleSheets('.legend-color'+timeStamp, 'border-radius: 2px;margin-right: 2px;display: inline-block;width: 10px;height: 10px;');
-    U.addStyleSheets('.legend-name' +timeStamp, 'margin-right: 10px;');
-    U.addStyleSheets('.elements-container'+timeStamp, 'position:absolute;left:0;top:0;width:100%;height:100%;');
-    U.addStyleSheets('.plot-container'+timeStamp, 'position:absolute;overflow:hidden;width:0;left:-10px;top:-10px;');
 
     var defaultElements = {
         plotDefaultColors : ['#5A4440', '#539EA0', '#C29333', '#AC9FA2', '#A35347', '#6C8B79']
     };
 
-    var coordinate = U.C('canvas'),
-        plot = U.C('canvas'),
-        plotContainer,
-        indicator = U.C('div'),
-        elementsContainer = U.C('div');//圆点、标签等
-    var coorCTX, plotCTX;
-    var hoverRounds = [];
-    var commonAttr = {};
-
-
-    var addCanvas = function(canvas, container){
-        canvas.width = commonAttr.containerWidth + 20;
-        canvas.height = commonAttr.containerHeight + 20;
+    var addCanvas = function(canvas, container, obj){
+        canvas.width = obj.commonAttr.containerWidth + 20;
+        canvas.height = obj.commonAttr.containerHeight + 20;
         canvas.style.cssText = "position:absolute;left:-10px;top:-10px;";
         container.appendChild(canvas);
         ctx = canvas.getContext("2d");
@@ -106,48 +102,50 @@
         return ctx;
     }
 
-    var setComponents = function(container, data){
+    var setComponents = function(container, obj){
+        var data = obj.commonAttr.data;
         var posStyle = U.getStyle(container, 'position');
         if(["relative", "absolute"].indexOf(posStyle) < 0){
             container.style.position = "relative";
         }
 
-        elementsContainer.className = "elements-container"+timeStamp;
+        obj.elementsContainer.className = "elements-container"+timeStamp;
 
         // 坐标
-        coorCTX = addCanvas(coordinate, container);
+        coorCTX = addCanvas(obj.coordinate, container, obj);
 
         // 指示线
-        addHoverRound(data);
-        indicator.className = 'indicator'+timeStamp;
-        U.setStyle(indicator, data.indicator||{});
-        elementsContainer.appendChild(indicator);
+        addHoverRound(obj);
+        obj.indicator.className = 'indicator'+timeStamp;
+        U.setStyle(obj.indicator, data.indicator||{});
+        obj.elementsContainer.appendChild(obj.indicator);
 
         // 折线容器
-        plotContainer = U.createEle('div', {
-            height: commonAttr.containerHeight+20+'px',
+        obj.plotContainer = U.createEle('div', {
+            height: obj.commonAttr.containerHeight+20+'px',
         }, 'plot-container'+timeStamp);
 
         // 折线画布
-        plotCTX = addCanvas(plot, plotContainer);
-        U.setStyle(plot, {
+        obj.plotCTX = addCanvas(obj.plot, obj.plotContainer, obj);
+        U.setStyle(obj.plot, {
             left : "0",
             top : "0"
         });
 
-        container.appendChild(plotContainer);
+        container.appendChild(obj.plotContainer);
 
         // 生成动画
         if(data.initAnim) plotContainer.className += ' init-anim'+timeStamp;
         
-        container.appendChild(elementsContainer);
+        container.appendChild(obj.elementsContainer);
 
-        renderCoordinate(container, data);
-        renderPlots(container, data);
+        renderCoordinate(container, obj);
+        renderPlots(container, obj);
         if(data.series.length > 1) renderLegend(container, data);
     }
 
-    var addHoverRound = function(data){
+    var addHoverRound = function(obj){
+        var data = obj.commonAttr.data;
         var l = data.series.length;
         var tmp;
         for(var i = 0; i < l; i++) {
@@ -155,12 +153,13 @@
                 // display : "none",
                 "z-index" : "1"
             }, data.roundDot&&data.roundDot.hover?'':"round-hover"+timeStamp);
-            hoverRounds.push(tmp);
-            elementsContainer.appendChild(tmp);
+            obj.hoverRounds.push(tmp);
+            obj.elementsContainer.appendChild(tmp);
         }
     }
 
-    var renderCoordX = function(container, data){
+    var renderCoordX = function(container, obj){
+        var commonAttr = obj.commonAttr, data = obj.commonAttr.data;
         if(data.xAxis){
             var categories = data.xAxis.categories, xAxis = data.xAxis;
             var l = categories.length, unit = commonAttr.containerWidth/l, X, label, xArr = [], step = data.xAxis.step;
@@ -231,7 +230,8 @@
         };
     }
 
-    var renderCoordY = function(container, data){
+    var renderCoordY = function(container, obj){
+        var commonAttr = obj.commonAttr, data = commonAttr.data;
         if(data.series && data.series.length > 0){
             var yAxis = data.yAxis;
             var hasLines = !yAxis || (yAxis.tickVisible !== false);
@@ -288,7 +288,8 @@
     }
 
     var tmpELement;
-    var putValueLabel = function(value, x, y, type, data){
+    var putValueLabel = function(value, x, y, type, obj){
+        var commonAttr = obj.commonAttr, data = commonAttr.data;
         var content = value, arrow = '', className = 'value-label'+timeStamp+' ' + type;
 
         if(!tmpELement){
@@ -367,7 +368,8 @@
         return dotObj;
     }
 
-    var renderRoundDot = function(val, data, pX, pY, lastMost){
+    var renderRoundDot = function(val, pX, pY, lastMost, obj){
+        var commonAttr = obj.commonAttr, data = commonAttr.data;
         var roundDot = data.roundDot;
         var type = (roundDot && roundDot.type) || 'x', most = roundDot && roundDot.most || 'both', dotObj = null;
         var w = h = 0;
@@ -387,7 +389,7 @@
         }
 
         if(dotObj){
-            elementsContainer.appendChild(dotObj);
+            obj.elementsContainer.appendChild(dotObj);
             w = dotObj.offsetWidth;
             h = dotObj.offsetHeight;
             U.setStyle(dotObj, {
@@ -397,7 +399,8 @@
         }
     }
 
-    var renderLabel = function(val, data, pX, pY, pos, lastMost){
+    var renderLabel = function(val, pX, pY, pos, lastMost, obj){
+        var commonAttr = obj.commonAttr, data = commonAttr.data;
         var valueLabel = data.valueLabel;
         var type = valueLabel && valueLabel.type || 'all';
         var most = valueLabel && valueLabel.most || 'both';
@@ -406,23 +409,23 @@
             var halfRound = h/2;
             if(type == 'all' || (type == 'x' && onStep)){
                 if(pos){//above
-                    lbl = putValueLabel(val, pX, pY-halfRound, 'above', data);
+                    lbl = putValueLabel(val, pX, pY-halfRound, 'above', obj);
                 }else{//below
-                    lbl = putValueLabel(val, pX, pY+halfRound, 'below', data);
+                    lbl = putValueLabel(val, pX, pY+halfRound, 'below', obj);
                 }
             }
 
             if((most == 'min' || most == 'both') && val == commonAttr.min && lastMost == 'min'){
-                lbl = putValueLabel(val, pX, pY+halfRound+5, 'min', data);
+                lbl = putValueLabel(val, pX, pY+halfRound+5, 'min', obj);
             }else if((most == 'max' || most == 'both') && val == commonAttr.max && lastMost == 'max'){
-                lbl = putValueLabel(val, pX, pY-halfRound-5, 'max', data);
+                lbl = putValueLabel(val, pX, pY-halfRound-5, 'max', obj);
             }
 
-            lbl && elementsContainer.appendChild(lbl);
+            lbl && obj.elementsContainer.appendChild(lbl);
         }
     }
 
-    var isLastMost = function(val, arr, i){
+    var isLastMost = function(val, arr, i, commonAttr){
         if(val == commonAttr.min){
             for (var j = i+1; j < arr.length; j++) {
                 if(arr[j] == val) return null;
@@ -438,9 +441,10 @@
         }
     }
 
-    var renderPlots = function(container, data){
+    var renderPlots = function(container, obj){
+        var commonAttr = obj.commonAttr, data = commonAttr.data, plotCTX = obj.plotCTX;
         var series = data.series, serie, Y, YArr, PI = Math.PI*2, step = data.xAxis.step;
-        commonAttr.yAxis = [];
+        obj.commonAttr.yAxis = [];
         for(var i = 0; i < series.length; i++){
             serie = series[i];
             plotCTX.beginPath();
@@ -455,19 +459,19 @@
                 if(j > 0){
                     Y = (1-((serie.data[j]-commonAttr.minBound)/commonAttr.rangeY)) * commonAttr.containerHeight;
                     YArr.push(Y);
-                    plotCTX.lineTo(commonAttr.xAxis[j], Y);
+                    obj.plotCTX.lineTo(commonAttr.xAxis[j], Y);
                 }
 
                 var onStep = U.isOnStep(step, j, l);
                 var pX = commonAttr.xAxis[j], pY = YArr[j];
                 val = serie.data[j];
-                var tmp = isLastMost(val, serie.data, j);
+                var tmp = isLastMost(val, serie.data, j, commonAttr);
                 // 圆点
-                renderRoundDot(val, data, pX, pY, tmp);
+                renderRoundDot(val, pX, pY, tmp, obj);
 
                 // 值标签
                 pos = (j==0 || val >= serie.data[j-1]);
-                renderLabel(val, data, pX, pY, pos, tmp);
+                renderLabel(val, pX, pY, pos, tmp, obj);
 
             }
             plotCTX.strokeStyle = serie.color || defaultElements.plotDefaultColors[i];
@@ -490,13 +494,13 @@
         }
     }
 
-    var renderCoordinate = function(container, data){
-        renderCoordX(container, data);
-        renderCoordY(container, data);
+    var renderCoordinate = function(container, obj){
+        renderCoordX(container, obj);
+        renderCoordY(container, obj);
     }
 
-    var indicatorLastIndex;
-    var showIndicator = function(x, y, data, startIndex, isInit){
+    var showIndicator = function(obj, x, y, startIndex, isInit){
+        var commonAttr = obj.commonAttr, data = commonAttr.data;
         if(x < 0 || x >= commonAttr.containerWidth){
             return;
         }
@@ -506,20 +510,19 @@
 
         index = Math.max(0, Math.min(commonAttr.serieLength-1, index));//规定index范围
 
-        if(indicatorLastIndex == index && !isInit){
+        if(obj.indicatorLastIndex == index && !isInit){
             return;
         }else{
-            indicatorLastIndex = index;
+            obj.indicatorLastIndex = index;
         }
         // 吸附
         var posX = index * interval + halfStep;
 
-        indicator.style.left = posX-indicator.offsetWidth/2 + 'px';
-
+        obj.indicator.style.left = posX-obj.indicator.offsetWidth/2 + 'px';
         // posY
         var l = commonAttr.yAxis.length;
         var yValArr = [];
-        var round;
+        var round, hoverRounds = obj.hoverRounds;;
         if(data.roundDot && data.roundDot.hover){
             var hover = data.roundDot.hover;
             var w = parseInt(hover.width), h = parseInt(hover.height);
@@ -546,7 +549,7 @@
                     position : "absolute",
                     top : commonAttr.yAxis[j][index]-round.offsetHeight/2 + 'px',
                     left : posX-round.offsetWidth/2 + 'px',
-                    backgroundColor : '#FFF'//data.series[j].color || defaultElements.plotDefaultColors[j] || '#FFF'
+                    backgroundColor : '#FFF'
                 });
             }
         }
@@ -559,9 +562,10 @@
         data.onhover && data.onhover.callback && data.onhover.callback(xVal, yValArr);
     }
 
-    var bindAction = function(data){
+    var bindAction = function(obj){
+        var data = obj.commonAttr.data;
         var startX, startY;
-        elementsContainer.addEventListener('touchmove', function(e){
+        obj.elementsContainer.addEventListener('touchmove', function(e){
             // e.preventDefault();
             var touch = e.touches[0], container = this.parentNode;
             var x = touch.pageX - container.offsetLeft;
@@ -573,34 +577,23 @@
                 e.preventDefault();
                 first = false;
             }
-            showIndicator(x, y, data);
+            showIndicator(obj, x, y);
         });
 
-        elementsContainer.addEventListener('touchstart', function(e){
-            // e.preventDefault();
-            // indicator.style.display = 'block';
-
+        obj.elementsContainer.addEventListener('touchstart', function(e){
             var touch = e.touches[0], container = this.parentNode;
             var x = touch.pageX - container.offsetLeft;
             var y = touch.pageY - container.offsetTop;
 
-            // U.setCss(hoverRounds, 'display', 'block');
             startX = x;
             startY = y;
 
-            showIndicator(x, y, data);
-        });
-
-        elementsContainer.addEventListener('touchend', function(e){
-            // e.preventDefault();
-            // indicator.style.display = 'none';
-
-            // U.setCss(hoverRounds, 'display', 'none');
+            showIndicator(obj, x, y);
         });
     }
 
-    var initAnim = function(){
-        plotContainer.style.width = commonAttr.containerWidth+20+'px';
+    var initAnim = function(obj){
+        obj.plotContainer.style.width = obj.commonAttr.containerWidth+20+'px';
     }
 
     var renderLegend = function(container, data){
@@ -616,61 +609,83 @@
         container.appendChild(legend);
     }
 
-    var clear = function(){
-        plotContainer && (plotContainer.innerHTML = '');
-        elementsContainer && (elementsContainer.innerHTML = '');
-        hoverRounds = [];
+    var clear = function(obj){
+        obj.plotContainer && (obj.plotContainer.innerHTML = '');
+        obj.elementsContainer && (obj.elementsContainer.innerHTML = '');
+        obj.hoverRounds = [];
     }
 
-    var render = function(container, data){
-        container.innerHTML = '';
-        clear();
-        commonAttr.data = data;
-        var w = container.clientWidth;
-        var h = container.clientHeight;
+    var Line = function(data){
+        var container = data.container;
 
-        var innerContainer = U.C('div'), tmpWidthDelta = 40, paddingLeft = 30;
+        var components = {
+            data : data,
+            container : container,
+            coordinate : U.C('canvas'),
+            plot : U.C('canvas'),
+            plotContainer : null,
+            indicator : U.C('div'),
+            elementsContainer : U.C('div'),//圆点、标签等
+            coorCTX : null,
+            plotCTX : null,
+            hoverRounds : [],
+            indicatorLastIndex : null
+        };
+
+        this.getComponents = function(){
+            return components;
+        }
+
+        this.refresh();
+    }
+
+    Line.prototype.refresh = function(){
+        var components = this.getComponents(), data = components.data;
+        components.container.innerHTML = '';
+        clear(components);
+        
+        var tmpWidthDelta = 40, paddingLeft = 30;
         if(data.yAxis && data.yAxis.labelVisible === false){
             tmpWidthDelta = 0;
             paddingLeft = 0;
         }
-        innerContainer.style.cssText = 'position: relative; width: '+(w-tmpWidthDelta)+'px; height: '+(h-30)+'px;margin:6px 10px 0px '+ paddingLeft +'px'
 
-        container.appendChild(innerContainer);
+        innerContainer = U.createEle('div', {
+            position : 'relative',
+            width : (components.container.clientWidth - tmpWidthDelta) + 'px',
+            height : (components.container.clientHeight - 30) + 'px',
+            margin: '6px 10px 0px '+ paddingLeft +'px'
+        }, '', '', components.container);
 
-        commonAttr.containerWidth = parseInt(innerContainer.clientWidth);
-        commonAttr.containerHeight = parseInt(innerContainer.clientHeight);
+        components.commonAttr = {
+            data : data,
+            containerWidth : parseInt(innerContainer.clientWidth),
+            containerHeight : parseInt(innerContainer.clientHeight),
+            serieLength : data.series[0].data.length
+        };
 
-        commonAttr.serieLength = data.series[0].data.length;
+        setComponents(innerContainer, components);
 
-        setComponents(innerContainer, data);
-
-        initAnim();//生成动画
+        initAnim(components);//生成动画
 
         if(data.onhover && data.onhover.callback){
-            bindAction(data);
-            var index = data.onhover.start === undefined? 100000 : data.onhover.start;
-            showIndicator(0, 0, data, indicatorLastIndex || index, true);
+            bindAction(components);
+            var start = data.onhover.start === undefined? 10000 : data.onhover.start;
+            var index = components.indicatorLastIndex === null ? start : components.indicatorLastIndex;
+            showIndicator(components, 0, 0, index, true);
         }
     }
 
-    var moveIndicator = function(param){
+    Line.prototype.moveIndicator = function(param){
+        var components = this.getComponents();
         if('moveTo' in param){
-            showIndicator(0, 0, commonAttr.data, param.moveTo);
+            showIndicator(components, 0, 0, param.moveTo);
         }else if('moveBy'in param){
-            showIndicator(0, 0, commonAttr.data, indicatorLastIndex + param.moveBy);
+            showIndicator(components, 0, 0, components.indicatorLastIndex + param.moveBy);
         }
     }
 
     window.Charts = {
-        plots : render,
-        moveIndicator : moveIndicator
+        Line : Line
     };
-    
-    // window.Charts = {
-    //     Line : {
-    //         render : render,
-    //         moveIndicator : moveIndicator
-    //     }
-    // };
 })();

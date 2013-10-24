@@ -43,7 +43,7 @@ var data = {
         border : "none"
     },
     valueLabel : {
-        type : 'all',// 备选值: none[没有普通值标签] all[(默认)显示全部普通值标签] x[显示和X轴对应的值标签] 或 该属性为空属性
+        type : 'none',// 备选值: none[没有普通值标签] all[(默认)显示全部普通值标签] x[显示和X轴对应的值标签] 或 该属性为空属性
         most : 'both', // 备选值: both[(默认)显示最大最小值标签] min[显示最小值标签] max[显示最大值标签] 或 该属性为空属性
         label : { // 普通值标签CSS样式，该属性可为空
             background : 'url(/charts_dev_UI/res/label.png) no-repeat',
@@ -74,7 +74,7 @@ var data = {
         }
     },
     xAxis: { // x轴属性，必选
-        tickVisible : true, // 当tickVisible === false，刻度线不显示，其他情况显示，该属性可为空
+        tickVisible : false, // 当tickVisible === false，刻度线不显示，其他情况显示，该属性可为空
         step : 3, // x轴刻度步数，每N步显示一条竖线，该属性可为空
         lineColor : '#f2f2f2', // 刻度线颜色，该属性可为空
         fontColor : '#aaaaaa', // 标签字体颜色，该属性可为空
@@ -83,7 +83,7 @@ var data = {
             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] // x轴坐标值，必选
     },
     yAxis: { // 该属性可为空
-        tickVisible : false, //当tickVisible === false，刻度线不显示，其他情况显示，该属性可为空
+        tickVisible : true, //当tickVisible === false，刻度线不显示，其他情况显示，该属性可为空
         lineColor : '#f2f2f2', // 刻度线颜色，该属性可为空
         fontColor : '#aaaaaa', // 标签字体颜色，该属性可为空
         lineWidth : 2, // 刻度线宽度，该属性可为空
@@ -119,6 +119,7 @@ btn.onclick = function(){
                 data: [1.0, 100.9, 9.5, 7.5, 18.2, 21.5, 23.2, 26.5, 23.3, 18.3]
             }       
         ];
+        
     Charts.plots(charts, data);
 }
 </script>
