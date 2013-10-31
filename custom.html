@@ -6,12 +6,13 @@
 <button id='btn' style="width:300px; height:80px">刷新</button>
 <div id="charts" style="height:500px;"></div>
 <div id="show"></div>
-<script src="charts.js"></script>
+<script src="line.js"></script>
 <script>
 var charts = document.getElementById('charts');
 var btn = document.getElementById('btn');
 var show = document.getElementById('show');
 var data = {
+    container : charts, // 外部容器
     initAnim : true,
     roundDot : { // 圆点样式，该属性可为空
         type : 'x',// 备选值: none[没有普通圆点] all[(默认)显示全部普通圆点] x[显示和X轴对应的圆点] 或 该属性为空属性
@@ -104,7 +105,7 @@ var data = {
     }
 };
 
-Charts.plots(charts, data);
+var chart = new Charts.Line(data);
 
 btn.onclick = function(){
     data.xAxis = {
@@ -120,7 +121,7 @@ btn.onclick = function(){
             }       
         ];
         
-    Charts.plots(charts, data);
+    chart.refresh(data);
 }
 </script>
 </body>

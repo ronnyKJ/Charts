@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html><!--STATUS OK--><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta name="viewport" content="width=device-width,minimum-scale=1.0"/><meta name="format-detection" content="telephone=no"/></head><body>
+
+<!-- <button id='btn' style="width:300px; height:80px">刷新</button> -->
+<div id="charts" style="height:200px;"></div><br><br><br>------------------<br><br><br>
+<div id="charts1" style="height:200px;"></div>
+<button id="btn">move</button>
+<script src="charts_v3.js"></script>
+<script>
+var charts = document.getElementById('charts');
+var charts1 = document.getElementById('charts1');
+var btn = document.getElementById('btn');
+var data = {
+    guide : true,
+    container : charts,//指定容器
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar']
+    },
+    series: [
+        {
+            name: 'Tokyo',
+            color: '#b8d4f0',
+            data: [10,10,10]
+        }       
+    ],
+    onhover : { // 该属性可为空
+        callback : function(x, yArr){ // touchmove时回调，必选
+            
+        },
+        start : 1
+    }
+};
+
+var data1 = {
+    guide : true,
+    container : charts1,
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar']
+    },
+    series: [
+        {   
+            name: 'Tokyo',
+            color: '#b8d4f0',
+            data: [20,10,30]
+        }       
+    ],
+    onhover : { // 该属性可为空
+        callback : function(x, yArr){ // touchmove时回调，必选
+            
+        }
+    }
+};
+
+var c = new Charts.Line(data);//调用方式
+var c1 = new Charts.Line(data1);
+
+window.onresize = function(){
+    c.refresh(); //用当前数据重新渲染
+    console.log(charts.clientWidth);
+}
+
+btn.onclick = function(){
+    c.moveIndicator({ //移动指示线，参数两者选其一，若都指定，以moveTo优先
+        moveTo : 1, 
+        moveBy : -1
+    });
+}
+</script>
+
+
+</body></html>

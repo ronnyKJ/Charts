@@ -2,17 +2,23 @@
 <html>
 <head><title>Charts</title>
 </head>
+<script src="base.js"></script>
+<script src="line.js"></script>
+<script src="pie.js"></script>
 <body>
 <!-- <button id='btn' style="width:300px; height:80px">刷新</button> -->
+<div id="pie" style="height:250px;"></div>
 <div id="charts" style="height:200px;"></div><br><br><br>------------------<br><br><br>
-<div id="charts1" style="height:200px;"></div>
+<div id="charts1" style="height:100px;"></div>
+
 <button id="btn">move</button>
-<script src="charts_v2.js"></script>
+
 <script>
 var charts = document.getElementById('charts');
 var charts1 = document.getElementById('charts1');
 var btn = document.getElementById('btn');
 var data = {
+    guide : true,
     container : charts,//指定容器
     xAxis: {
         categories: ['Jan', 'Feb', 'Mar']
@@ -32,6 +38,7 @@ var data = {
 };
 
 var data1 = {
+    guide : true,
     container : charts1,
     xAxis: {
         categories: ['Jan', 'Feb', 'Mar']
@@ -46,7 +53,8 @@ var data1 = {
     onhover : { // 该属性可为空
         callback : function(x, yArr){ // touchmove时回调，必选
             
-        }
+        },
+        start : 2
     }
 };
 
@@ -64,6 +72,29 @@ btn.onclick = function(){
         moveBy : -1
     });
 }
+
+var pie = document.getElementById('pie');
+var pieData = {
+    container : pie,
+    pie : {
+        innerRadius : 30,
+        radius : 80
+    },
+    series: [
+        {name: 'Tokyo', data: 20},
+        {name: 'Beijing', data: 30},
+        {name: 'New York', data: 10},
+        {name: 'Taiwan', data: 15},
+        {name: 'HK', data: 25}
+    ],
+    onhover : { // 该属性可为空
+        callback : function(data){ // touchmove时回调，必选
+            
+        }
+    }
+};
+
+new Charts.Pie(pieData);
 </script>
 </body>
 </html>
